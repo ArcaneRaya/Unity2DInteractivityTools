@@ -37,8 +37,7 @@ public class MouseRotator : MonoBehaviour
         {
             Vector3 mouseDirection = mouseInteractable.Position - transform.position;
             float angle = Vector3.SignedAngle(previousMouseDirection, mouseDirection, transform.forward);
-            Vector3 targetRotation = transformer.eulerRotation + new Vector3(0, 0, angle);
-            transformer.SetRotation(targetRotation);
+            transformer.AddRotation(new Vector3(0, 0, angle));
             previousMouseDirection = mouseDirection;
         }
     }

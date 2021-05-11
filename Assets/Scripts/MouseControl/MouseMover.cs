@@ -39,12 +39,14 @@ public class MouseMover : MonoBehaviour
     {
         if (isFollowing || alwaysFollow)
         {
-            if (followMode == MouseFollowMode.Absolute)
+            switch (followMode)
             {
-                transformer.SetPosition(new Vector3(mouseInteractable.Position.x, mouseInteractable.Position.y, transform.position.z));
-            } else
-            {
-                transformer.SetPosition(transform.position + mouseInteractable.MoveDelta);
+                case MouseFollowMode.Relative:
+                    transformer.AddPosition(mouseInteractable.MoveDelta);
+                    break;
+                case MouseFollowMode.Absolute:
+                    transformer.SetPosition(new Vector3(mouseInteractable.Position.x, mouseInteractable.Position.y, transform.position.z));
+                    break;
             }
         }
     }

@@ -32,42 +32,72 @@ public class ObjectTransformer : MonoBehaviour
     private Vector3 targetEulerRotation = Vector3.zero;
     private Vector3 targetSnappedEulerRotation = Vector3.zero;
 
-    public void SetPosition(Vector3 position)
+    public void SetPosition(Vector3 position, bool instant = false)
     {
         targetPosition = position;
         UpdateTargetSnappedPosition();
+
+        if (instant)
+        {
+            UpdatePosition(Mode.Instant);
+        }
     }
 
-    public void AddPosition(Vector3 position)
+    public void AddPosition(Vector3 position, bool instant = false)
     {
         targetPosition += position;
         UpdateTargetSnappedPosition();
+
+        if (instant)
+        {
+            UpdatePosition(Mode.Instant);
+        }
     }
 
-    public void SetScale(Vector3 scale)
+    public void SetScale(Vector3 scale, bool instant = false)
     {
         scale = CheckForMinimalScale(scale);
         targetScale = scale;
         UpdateTargetSnappedScale();
+
+        if (instant)
+        {
+            UpdateScale(Mode.Instant);
+        }
     }
 
-    public void AddScale(Vector3 scale)
+    public void AddScale(Vector3 scale, bool instant = false)
     {
         targetScale += scale;
         targetScale = CheckForMinimalScale(targetScale);
         UpdateTargetSnappedScale();
+
+        if (instant)
+        {
+            UpdateScale(Mode.Instant);
+        }
     }
 
-    public void SetRotation(Vector3 eulerAngles)
+    public void SetRotation(Vector3 eulerAngles, bool instant = false)
     {
         targetEulerRotation = eulerAngles;
         UpdateTargetSnappedRotation();
+
+        if (instant)
+        {
+            UpdateRotation(Mode.Instant);
+        }
     }
 
-    public void AddRotation(Vector3 eulerAngles)
+    public void AddRotation(Vector3 eulerAngles, bool instant = false)
     {
         targetEulerRotation += eulerAngles;
         UpdateTargetSnappedRotation();
+
+        if (instant)
+        {
+            UpdateRotation(Mode.Instant);
+        }
     }
 
     public void StopMoveAnimationSmooth()
@@ -90,24 +120,24 @@ public class ObjectTransformer : MonoBehaviour
     {
         if (transform.position != targetPosition)
         {
-            UpdatePosition();
+            UpdatePosition(moveMode);
         }
 
         if(transform.localScale != targetScale)
         {
-            UpdateScale();
+            UpdateScale(scaleMode);
         }
 
         if(eulerRotation != targetEulerRotation)
         {
-            UpdateRotation();
+            UpdateRotation(rotationMode);
         }
     }
 
-    private void UpdatePosition()
+    private void UpdatePosition(Mode mode)
     {
         Vector3 target = useMovementSnapping ? targetSnappedPosition : targetPosition;
-        switch (moveMode)
+        switch (mode)
         {
             case Mode.Instant:
                 transform.position = target;
@@ -124,10 +154,10 @@ public class ObjectTransformer : MonoBehaviour
         targetSnappedPosition = SnapVector(targetPosition, snapMovementDistance);
     }
 
-    private void UpdateScale()
+    private void UpdateScale(Mode mode)
     {
         Vector3 target = useScaleSnapping ? targetSnappedScale : targetScale;
-        switch (scaleMode)
+        switch (mode)
         {
             case Mode.Instant:
                 transform.localScale = target;
@@ -153,10 +183,10 @@ public class ObjectTransformer : MonoBehaviour
         return scale;
     }
 
-    private void UpdateRotation()
+    private void UpdateRotation(Mode mode)
     {
         Vector3 target = useRotationSnapping ? targetSnappedEulerRotation : targetEulerRotation;
-        switch (rotationMode)
+        switch (mode)
         {
             case Mode.Instant:
                 eulerRotation = target;

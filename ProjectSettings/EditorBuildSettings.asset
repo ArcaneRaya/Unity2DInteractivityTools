@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ParalaxEffect.unity
+    guid: 1d3cb278a828f24449fbc5a923bc80e8
   m_configObjects: {}

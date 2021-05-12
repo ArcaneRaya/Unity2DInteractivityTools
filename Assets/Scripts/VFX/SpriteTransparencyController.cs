@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class SpriteFadeController : MonoBehaviour
+public class SpriteTransparencyController : MonoBehaviour
 {
     [SerializeField] private SpriteRendererAlphaTransformer alphaTransformer = default;
 

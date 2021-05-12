@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 238220052}
   - component: {fileID: 238220058}
   - component: {fileID: 238220057}
+  - component: {fileID: 238220059}
   m_Layer: 0
   m_Name: YellowBlock
   m_TagString: Untagged
@@ -353,6 +354,25 @@ MonoBehaviour:
     changeSpeed: 5
     useSnapping: 0
     snapValue: 2
+--- !u!114 &238220059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238220051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b070a6e7ad55fa4db6434c6c4ba7f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 360, z: 0}
+  mode: 2
+  animationEase: 4
+  animationTime: 0.5
+  animationEasePong: 30
+  animationTimePong: 1
+  alwaysAnimate: 0
 --- !u!1 &1512418154
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +386,7 @@ GameObject:
   - component: {fileID: 1512418159}
   - component: {fileID: 1512418158}
   - component: {fileID: 1512418157}
+  - component: {fileID: 1512418160}
   m_Layer: 0
   m_Name: RedBlock
   m_TagString: Untagged
@@ -509,6 +530,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1512418160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512418154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929081ef907b23741bb739b91a2e39b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onRequirementReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 238220059}
+        m_MethodName: StartAnimating
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  canBeRepeated: 1
+  mode: 0
+  requirement: 0.5
 --- !u!1 &2108739555
 GameObject:
   m_ObjectHideFlags: 0

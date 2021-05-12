@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 [RequireComponent(typeof(ObjectTransformer))]
-public class SimpleMoveAnimation : SimpleAnimation
+public class SimpleMoveAnimation : SimpleVectorAnimation
 {
     private ObjectTransformer transformer = null;
 

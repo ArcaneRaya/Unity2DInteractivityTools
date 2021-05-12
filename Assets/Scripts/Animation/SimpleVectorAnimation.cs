@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
-public abstract class SimpleAnimation : MonoBehaviour
+public abstract class SimpleVectorAnimation : MonoBehaviour
 {
     [Header("Animation Settings")]
     [SerializeField] private Vector3 target = Vector3.zero;

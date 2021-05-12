@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleScaleAnimation : SimpleAnimation
+public class SimpleScaleAnimation : SimpleVectorAnimation
 {
     private ObjectTransformer transformer = null;
 

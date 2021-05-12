@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleRotateAnimation : SimpleAnimation
+public class SimpleRotateAnimation : SimpleVectorAnimation
 {
     private ObjectTransformer transformer = null;
 

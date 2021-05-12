@@ -19,11 +19,11 @@ public class SimpleScaleAnimation : SimpleAnimation
 
     protected override void HandleReset(Vector3 startValue)
     {
-        transformer.SetScale(startValue, true);
+        transformer.SetScaleInstant(startValue);
     }
 
     protected override void OnAnimationUpdate(Vector3 currentValue)
     {
-        transformer.SetScale(currentValue, true);
+        transformer.SetScaleInstant(currentValue);
     }
 }

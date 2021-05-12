@@ -21,6 +21,8 @@ public abstract class SimpleAnimation : MonoBehaviour
     private Vector3 startValue = Vector3.zero;
     private Vector3 targetValue = Vector3.zero;
 
+    private const int INFINITE_LOOP = -1;
+
     public void StartAnimating()
     {
         if (currentTweenSequence != null)
@@ -29,18 +31,19 @@ public abstract class SimpleAnimation : MonoBehaviour
         }
         else
         {
-            CreateAnimation();
+            CreateAnimationAndLinkCallbacks();
         }
     }
 
     public void PauseAnimating()
     {
-        PauseAnimation();
+        PauseAnimationTween();
     }
 
-    public void StopAnimating(bool resetPosition)
+    public void StopAnimatingAndResetToStartState()
     {
-        StopAnimation(resetPosition);
+        KillAnimationTween();
+        HandleReset(startValue);
     }
 
     protected virtual void Awake()
@@ -52,7 +55,7 @@ public abstract class SimpleAnimation : MonoBehaviour
     {
         if (alwaysAnimate)
         {
-            CreateAnimation();
+            CreateAnimationAndLinkCallbacks();
         }
     }
 
@@ -67,44 +70,7 @@ public abstract class SimpleAnimation : MonoBehaviour
 
     protected abstract void HandleReset(Vector3 startValue);
 
-    private void CreateAnimation()
-    {
-        targetValue = startValue;
-        currentTweenSequence = DOTween.Sequence();
-        Tween moveTween = DOTween.To(() => targetValue, x => targetValue = x, startValue + target, animationTime);
-        moveTween.SetEase(animationEase);
-        currentTweenSequence.Append(moveTween);
-        Tween returnTween = null;
-
-        switch (mode)
-        {
-            case AnimationMode.Single:
-                break;
-            case AnimationMode.PingPong:
-                returnTween = DOTween.To(() => targetValue, x => targetValue = x, startValue, animationTimePong);
-                returnTween.SetEase(animationEasePong);
-                currentTweenSequence.Append(returnTween);
-                break;
-            case AnimationMode.Repeating:
-                currentTweenSequence.SetLoops(-1);
-                break;
-            case AnimationMode.RepeatingPingPong:
-                returnTween = DOTween.To(() => targetValue, x => targetValue = x, startValue, animationTimePong);
-                returnTween.SetEase(animationEasePong);
-                currentTweenSequence.Append(returnTween); currentTweenSequence.SetLoops(-1);
-                break;
-        }
-
-        currentTweenSequence.OnUpdate(()=>OnAnimationUpdate(targetValue));
-        currentTweenSequence.OnKill(OnTweenKilled);
-    }
-
-    private void OnTweenKilled()
-    {
-        currentTweenSequence = null;
-    }
-
-    private void PauseAnimation()
+    private void PauseAnimationTween()
     {
         if (currentTweenSequence != null)
         {
@@ -112,17 +78,87 @@ public abstract class SimpleAnimation : MonoBehaviour
         }
     }
 
-    private void StopAnimation(bool resetToStartValues)
+    private void KillAnimationTween()
     {
         if (currentTweenSequence != null)
         {
             currentTweenSequence.Kill();
         }
+    }
 
-        if (resetToStartValues)
+    private void CreateAnimationAndLinkCallbacks()
+    {
+        InitializeValues();
+        AppendAnimationTowardsTargetvalue();
+
+        if (ShouldHaveReturnAnimation())
         {
-            HandleReset(startValue);
+            AppendAnimationTowardsStartvalue();
         }
+
+        if (ShouldLoop())
+        {
+            currentTweenSequence.SetLoops(INFINITE_LOOP);
+        }
+
+        currentTweenSequence.OnUpdate(() => OnAnimationUpdate(targetValue));
+        currentTweenSequence.OnKill(OnTweenKilled);
+    }
+
+    private void InitializeValues()
+    {
+        targetValue = startValue;
+        currentTweenSequence = DOTween.Sequence();
+    }
+
+    private void AppendAnimationTowardsTargetvalue()
+    {
+        Tween moveTween = DOTween.To(() => targetValue, x => targetValue = x, startValue + target, animationTime);
+        moveTween.SetEase(animationEase);
+        currentTweenSequence.Append(moveTween);
+    }
+
+    private void AppendAnimationTowardsStartvalue()
+    {
+        Tween returnTween = null;
+        returnTween = DOTween.To(() => targetValue, x => targetValue = x, startValue, animationTimePong);
+        returnTween.SetEase(animationEasePong);
+        currentTweenSequence.Append(returnTween);
+    }
+
+    private bool ShouldHaveReturnAnimation()
+    {
+        switch (mode)
+        {
+            case AnimationMode.Single:
+            case AnimationMode.Repeating:
+                return false;
+            case AnimationMode.PingPong:
+            case AnimationMode.RepeatingPingPong:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private bool ShouldLoop()
+    {
+        switch (mode)
+        {
+            case AnimationMode.Single:
+            case AnimationMode.PingPong:
+                return false;
+            case AnimationMode.Repeating:
+            case AnimationMode.RepeatingPingPong:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void OnTweenKilled()
+    {
+        currentTweenSequence = null;
     }
 
     private enum AnimationMode { Single, Repeating, PingPong, RepeatingPingPong }

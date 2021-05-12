@@ -21,11 +21,11 @@ public class SimpleMoveAnimation : SimpleAnimation
 
     protected override void HandleReset(Vector3 startValue)
     {
-        transformer.SetPosition(startValue, true);
+        transformer.SetPositionInstant(startValue);
     }
 
     protected override void OnAnimationUpdate(Vector3 currentValue)
     {
-        transformer.SetPosition(currentValue, true);
+        transformer.SetPositionInstant(currentValue);
     }
 }

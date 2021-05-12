@@ -19,11 +19,11 @@ public class SimpleRotateAnimation : SimpleAnimation
 
     protected override void HandleReset(Vector3 startValue)
     {
-        transformer.SetRotation(startValue, true);
+        transformer.SetRotationInstant(startValue);
     }
 
     protected override void OnAnimationUpdate(Vector3 currentValue)
     {
-        transformer.SetRotation(currentValue, true);
+        transformer.SetRotationInstant(currentValue);
     }
 }

@@ -32,72 +32,78 @@ public class ObjectTransformer : MonoBehaviour
     private Vector3 targetEulerRotation = Vector3.zero;
     private Vector3 targetSnappedEulerRotation = Vector3.zero;
 
-    public void SetPosition(Vector3 position, bool instant = false)
+    public void SetPosition(Vector3 position)
     {
         targetPosition = position;
         UpdateTargetSnappedPosition();
-
-        if (instant)
-        {
-            UpdatePosition(Mode.Instant);
-        }
     }
 
-    public void AddPosition(Vector3 position, bool instant = false)
+    public void SetPositionInstant(Vector3 position)
+    {
+        SetPosition(position);
+        UpdatePosition(Mode.Instant);
+    }
+
+    public void AddPosition(Vector3 position)
     {
         targetPosition += position;
         UpdateTargetSnappedPosition();
-
-        if (instant)
-        {
-            UpdatePosition(Mode.Instant);
-        }
     }
 
-    public void SetScale(Vector3 scale, bool instant = false)
+    public void AddPositionInstant(Vector3 position)
+    {
+        AddPosition(position);
+        UpdatePosition(Mode.Instant);
+    }
+
+    public void SetScale(Vector3 scale)
     {
         scale = CheckForMinimalScale(scale);
         targetScale = scale;
         UpdateTargetSnappedScale();
-
-        if (instant)
-        {
-            UpdateScale(Mode.Instant);
-        }
     }
 
-    public void AddScale(Vector3 scale, bool instant = false)
+    public void SetScaleInstant(Vector3 scale)
+    {
+        SetScale(scale);
+        UpdateScale(Mode.Instant);
+    }
+
+    public void AddScale(Vector3 scale)
     {
         targetScale += scale;
         targetScale = CheckForMinimalScale(targetScale);
         UpdateTargetSnappedScale();
-
-        if (instant)
-        {
-            UpdateScale(Mode.Instant);
-        }
     }
 
-    public void SetRotation(Vector3 eulerAngles, bool instant = false)
+    public void AddScaleInstant(Vector3 scale)
+    {
+        AddScale(scale);
+        UpdateScale(Mode.Instant);
+    }
+
+    public void SetRotation(Vector3 eulerAngles)
     {
         targetEulerRotation = eulerAngles;
         UpdateTargetSnappedRotation();
-
-        if (instant)
-        {
-            UpdateRotation(Mode.Instant);
-        }
     }
 
-    public void AddRotation(Vector3 eulerAngles, bool instant = false)
+    public void SetRotationInstant(Vector3 eulerAngles)
+    {
+        SetRotation(eulerAngles);
+        UpdateRotation(Mode.Instant);
+    }
+
+    public void AddRotation(Vector3 eulerAngles)
     {
         targetEulerRotation += eulerAngles;
         UpdateTargetSnappedRotation();
+    }
 
-        if (instant)
-        {
-            UpdateRotation(Mode.Instant);
-        }
+    public void AddRotationInstant(Vector3 eulerAngles)
+    {
+        AddRotation(eulerAngles);
+        UpdateRotation(Mode.Instant);
     }
 
     public void StopMoveAnimationSmooth()

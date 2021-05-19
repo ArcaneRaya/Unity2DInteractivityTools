@@ -12,8 +12,30 @@ public class MouseInteractable : MonoBehaviour
 
     public Vector3 MoveDelta { get; private set; }
     public Vector3 Position { get; private set; }
+    public bool IsMouseDown
+    {
+        get {
+            return isMouseDown;
+        }
+    }
 
     private bool isMouseDown = false;
+    private bool isInteractionAllowed = true;
+
+    public void BlockInteraction()
+    {
+        isInteractionAllowed = false;
+    }
+
+    public void AllowInteraction()
+    {
+        isInteractionAllowed = true;
+    }
+
+    public void ForceRelease()
+    {
+        OnMouseUp();
+    }
 
     private void Awake()
     {
@@ -30,12 +52,21 @@ public class MouseInteractable : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (isInteractionAllowed == false) { return; }
+
+        isMouseDown = true;
         OnMouseClick.Invoke();
     }
 
     private void OnMouseUp()
     {
-        OnMouseRelease.Invoke();
+        if (isInteractionAllowed == false) { return; }
+
+        if (isMouseDown)
+        {
+            isMouseDown = false;
+            OnMouseRelease.Invoke();
+        }
     }
 
     private Vector3 GetMouseWorldPosition()

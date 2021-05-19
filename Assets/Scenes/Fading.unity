@@ -137,6 +137,8 @@ GameObject:
   - component: {fileID: 238220058}
   - component: {fileID: 238220057}
   - component: {fileID: 238220059}
+  - component: {fileID: 238220061}
+  - component: {fileID: 238220060}
   m_Layer: 0
   m_Name: YellowBlock
   m_TagString: Untagged
@@ -373,6 +375,74 @@ MonoBehaviour:
   animationEasePong: 30
   animationTimePong: 1
   alwaysAnimate: 0
+--- !u!114 &238220060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238220051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93de016b6c5dbe4cbd619ecc1de1d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPosition: {x: 1, y: -1.75, z: -1}
+  moveOnStart: 0
+--- !u!114 &238220061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238220051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eceb5ca3d27bc3e4888df3b86435fd88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onRequirementReached:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 238220053}
+        m_MethodName: ForceRelease
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 238220053}
+        m_MethodName: BlockInteraction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 238220060}
+        m_MethodName: Move
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  canBeRepeated: 0
+  maxDistance: 1
+  ignoreZValue: 1
+  objectToCheck: {fileID: 238220058}
+  targetObject: {fileID: 1512418154}
+  allowWhileObjectIsHeld: 1
 --- !u!1 &1512418154
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +522,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512418154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.61, y: -1.75, z: 0}
+  m_LocalPosition: {x: 1, y: -1.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
